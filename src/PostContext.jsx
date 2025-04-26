@@ -3,26 +3,35 @@ import React, { createContext, useContext, useState } from 'react';
 const PostContext = createContext();
 
 export function PostProvider({ children }) {
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'First Post', content: 'Content for the first post.', image: '', comments: [], upvotes: 0 },
-    { id: 2, title: 'Second Post', content: 'Content for the second post.', image: '', comments: [], upvotes: 0 },
-  ]);
+  const [posts, setPosts] = useState([]); // ⬅️ Start with empty posts, remove the fake ones
+
+  // Add a post
+  const addPost = (newPost) => {
+    setPosts(prevPosts => [
+      ...prevPosts,
+      { ...newPost, id: Date.now(), upvotes: 0, comments: [] }
+    ]);
+  };
 
   // Edit a post
   const editPost = (id, updatedPost) => {
-    setPosts(posts.map(post => (post.id === id ? { ...post, ...updatedPost } : post)));
+    setPosts(prevPosts =>
+      prevPosts.map(post => (post.id === id ? { ...post, ...updatedPost } : post))
+    );
   };
 
   // Delete a post
   const deletePost = (id) => {
-    setPosts(posts.filter(post => post.id !== id));
+    setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
   };
 
   // Upvote a post
   const upvotePost = (id) => {
-    setPosts(posts.map(post => 
-      post.id === id ? { ...post, upvotes: post.upvotes + 1 } : post
-    ));
+    setPosts(prevPosts =>
+      prevPosts.map(post => 
+        post.id === id ? { ...post, upvotes: post.upvotes + 1 } : post
+      )
+    );
   };
 
   // Get a post by ID
@@ -31,7 +40,7 @@ export function PostProvider({ children }) {
   };
 
   return (
-    <PostContext.Provider value={{ posts, editPost, deletePost, upvotePost, getPostById }}>
+    <PostContext.Provider value={{ posts, addPost, editPost, deletePost, upvotePost, getPostById }}>
       {children}
     </PostContext.Provider>
   );
