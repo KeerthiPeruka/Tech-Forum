@@ -48,7 +48,7 @@ The following **required** functionality is completed:
 
 Here's a walkthrough :
 
-<img src='https://i.postimg.cc/kXWSHhh9/Tech-forum.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.postimg.cc/kXWSHhh9/Tech-forum.gif' title='Video Walkthrough' width='200' alt='Video Walkthrough' />
 
 
 
